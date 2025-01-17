@@ -1,0 +1,94 @@
+{
+  "info": {
+    "_postman_id": "b5f3e8d0-5f1d-4e3c-8b2a-9f8b9e2e4b5a",
+    "name": "Redis Keyspace Demo",
+    "description": "Collection for testing Redis hash set operations with keyspace notifications",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Hash Set",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"John Doe\",\n    \"phoneNumber\": \"123-456-7890\",\n    \"email\": \"john.doe@example.com\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/hashset/{{hashset_id}}?ttl=30",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["hashset", "{{hashset_id}}"],
+          "query": [
+            {
+              "key": "ttl",
+              "value": "30",
+              "description": "Time to live in seconds (optional, defaults to 60)"
+            }
+          ]
+        },
+        "description": "Creates a new hash set with the specified ID and TTL"
+      }
+    },
+    {
+      "name": "Get Hash Set",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/hashset/{{hashset_id}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["hashset", "{{hashset_id}}"]
+        },
+        "description": "Retrieves the hash set data for the specified ID"
+      }
+    },
+    {
+      "name": "Update TTL",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/hashset/{{hashset_id}}/ttl/45",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["hashset", "{{hashset_id}}", "ttl", "45"],
+          "description": "Updates the TTL for the specified hash set"
+        }
+      }
+    },
+    {
+      "name": "Delete Hash Set",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/hashset/{{hashset_id}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["hashset", "{{hashset_id}}"]
+        },
+        "description": "Deletes the hash set with the specified ID"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "hashset_id",
+      "value": "test-123",
+      "type": "string",
+      "description": "The ID of the hash set to operate on"
+    }
+  ]
+} 
